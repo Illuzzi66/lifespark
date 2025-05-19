@@ -2,13 +2,20 @@ import { useState, useEffect } from 'react';
 import { MessageSquare } from 'lucide-react';
 import { getRandomQuote } from '@/lib/quotes';
 import { Quote } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 export const QuoteDisplay: React.FC = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   
   useEffect(() => {
     // Get a random quote on initial load
-    setQuote(getRandomQuote());
+    const randomQuote = getRandomQuote();
+    setQuote(randomQuote);
+    
+    // Track quote impression
+    if (randomQuote) {
+      trackEvent('view_quote', 'engagement', randomQuote.author);
+    }
   }, []);
   
   if (!quote) return null;

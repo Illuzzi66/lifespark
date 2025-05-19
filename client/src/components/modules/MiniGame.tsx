@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { WordPuzzle, TriviaQuestion } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 // Word puzzles
 const wordPuzzles: WordPuzzle[] = [
@@ -86,6 +87,9 @@ export const MiniGame: React.FC = () => {
   const startGame = (type: GameType) => {
     resetGame(type);
     setShowGameDialog(true);
+    
+    // Track game start event
+    trackEvent('start_game', 'engagement', type);
   };
   
   // Check the answer
@@ -94,15 +98,32 @@ export const MiniGame: React.FC = () => {
       const isCorrect = answer.toLowerCase() === currentWordPuzzle.answer.toLowerCase();
       setIsCorrect(isCorrect);
       setShowResult(true);
+      
+      // Track word puzzle answer attempt
+      trackEvent(
+        isCorrect ? 'game_answer_correct' : 'game_answer_incorrect',
+        'engagement',
+        `word_puzzle_${currentWordPuzzle.answer}`
+      );
     } else if (gameType === 'trivia' && currentTriviaQuestion && selectedAnswer !== null) {
       const isCorrect = selectedAnswer === currentTriviaQuestion.correctAnswer;
       setIsCorrect(isCorrect);
       setShowResult(true);
+      
+      // Track trivia question answer attempt
+      trackEvent(
+        isCorrect ? 'game_answer_correct' : 'game_answer_incorrect',
+        'engagement',
+        `trivia_question_${currentTriviaQuestion.question.substring(0, 30)}`
+      );
     }
   };
   
   // Try another puzzle/question
   const tryAnother = () => {
+    // Track trying another game
+    trackEvent('try_another_game', 'engagement', gameType);
+    
     resetGame(gameType);
   };
 
