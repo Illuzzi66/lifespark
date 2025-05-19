@@ -13,8 +13,9 @@ export const DashboardTab: React.FC = () => {
       {/* Top Banner Ad */}
       <div className="mb-6">
         <AdBanner 
-          adSlot="xxx" 
+          adSlot="dashboard_top" 
           adFormat="horizontal" 
+          adPosition="dashboard_top"
           className="w-full h-20 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
         />
       </div>
@@ -35,8 +36,9 @@ export const DashboardTab: React.FC = () => {
       {/* Bottom Banner Ad */}
       <div className="mt-6">
         <AdBanner 
-          adSlot="xxx" 
+          adSlot="dashboard_bottom" 
           adFormat="responsive" 
+          adPosition="dashboard_bottom"
           className="w-full h-24 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
         />
       </div>

@@ -7,8 +7,9 @@ export const TasksTab: React.FC = () => {
       {/* Top Banner Ad */}
       <div className="mb-6">
         <AdBanner 
-          adSlot="xxx" 
+          adSlot="tasks_top" 
           adFormat="horizontal" 
+          adPosition="tasks_top"
           className="w-full h-20 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
         />
       </div>

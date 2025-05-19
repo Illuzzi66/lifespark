@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { trackEvent } from '@/lib/analytics';
 
 interface AdBannerProps {
@@ -14,8 +14,6 @@ export const AdBanner: React.FC<AdBannerProps> = ({
   adFormat = 'auto',
   adPosition = 'unknown'
 }) => {
-  const adRef = useRef<HTMLDivElement>(null);
-  
   useEffect(() => {
     try {
       // Track ad impression
@@ -35,20 +33,20 @@ export const AdBanner: React.FC<AdBannerProps> = ({
   const publisherId = import.meta.env.VITE_ADSENSE_PUBLISHER_ID || 'ca-pub-placeholder';
 
   return (
-    <ins
-      ref={adRef}
-      className={`adsbygoogle ${className}`}
-      style={{ display: 'block' }}
-      data-ad-client={publisherId}
-      data-ad-slot={adSlot}
-      data-ad-format={adFormat}
-      data-full-width-responsive="true"
-    >
+    <div className={className}>
+      <ins
+        className="adsbygoogle"
+        style={{ display: 'block', width: '100%', height: '100%' }}
+        data-ad-client={publisherId}
+        data-ad-slot={adSlot}
+        data-ad-format={adFormat}
+        data-full-width-responsive="true"
+      />
       {/* Fallback content when ads are not loaded */}
       <div className="flex items-center justify-center w-full h-full text-gray-400 text-sm">
         Advertisement
       </div>
-    </ins>
+    </div>
   );
 };
 
