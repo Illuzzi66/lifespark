@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { getTodos, addTodo, toggleTodo, deleteTodo } from '@/lib/local-storage';
 import { Todo } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 export const TodoModule: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -19,17 +20,32 @@ export const TodoModule: React.FC = () => {
     e.preventDefault();
     if (!newTask.trim()) return;
     
+    // Track this add event in analytics
+    trackEvent('add_todo', 'productivity', newTask.length.toString());
+    
     const updatedTodos = addTodo(newTask.trim());
     setTodos(updatedTodos);
     setNewTask('');
   };
 
   const handleToggleTodo = (id: string) => {
+    const todo = todos.find(t => t.id === id);
+    // Track the completion status change
+    if (todo) {
+      trackEvent(
+        todo.completed ? 'uncheck_todo' : 'complete_todo', 
+        'productivity'
+      );
+    }
+    
     const updatedTodos = toggleTodo(id);
     setTodos(updatedTodos);
   };
 
   const handleDeleteTodo = (id: string) => {
+    // Track deletion event
+    trackEvent('delete_todo', 'productivity');
+    
     const updatedTodos = deleteTodo(id);
     setTodos(updatedTodos);
   };

@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Input } from '@/components/ui/input';
 import { getHabits, addHabit, toggleHabitDay, deleteHabit } from '@/lib/local-storage';
 import { Habit } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 export const HabitTracker: React.FC = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -22,6 +23,9 @@ export const HabitTracker: React.FC = () => {
   const handleAddHabit = () => {
     if (!newHabitName.trim()) return;
     
+    // Track habit creation
+    trackEvent('create_habit', 'productivity', newHabitName);
+    
     const updatedHabits = addHabit(newHabitName.trim());
     setHabits(updatedHabits);
     setNewHabitName('');
@@ -29,11 +33,32 @@ export const HabitTracker: React.FC = () => {
   };
 
   const handleToggleDay = (habitId: string, dayIndex: number) => {
+    const habit = habits.find(h => h.id === habitId);
+    
+    // Track habit tracking
+    if (habit) {
+      const dayStatus = habit.days[dayIndex];
+      const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      
+      trackEvent(
+        dayStatus ? 'uncheck_habit_day' : 'check_habit_day', 
+        'productivity',
+        `${habit.name} - ${dayNames[dayIndex]}`
+      );
+    }
+    
     const updatedHabits = toggleHabitDay(habitId, dayIndex);
     setHabits(updatedHabits);
   };
 
   const handleDeleteHabit = (habitId: string) => {
+    const habit = habits.find(h => h.id === habitId);
+    
+    // Track habit deletion
+    if (habit) {
+      trackEvent('delete_habit', 'productivity', habit.name);
+    }
+    
     const updatedHabits = deleteHabit(habitId);
     setHabits(updatedHabits);
   };

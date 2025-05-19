@@ -6,6 +6,7 @@ import { getZodiacInfo, saveZodiacInfo } from '@/lib/local-storage';
 import { fetchZodiacInfo } from '@/lib/zodiac';
 import { ZodiacInfo } from '@/types';
 import { useToast } from '@/hooks/use-toast';
+import { trackEvent } from '@/lib/analytics';
 
 export const ZodiacModule: React.FC = () => {
   const [zodiacInfo, setZodiacInfo] = useState<ZodiacInfo>({ month: '', day: '' });
@@ -69,6 +70,9 @@ export const ZodiacModule: React.FC = () => {
     
     setLoading(true);
     
+    // Track zodiac lookup attempt
+    trackEvent('lookup_zodiac', 'engagement', `${selectedMonth}-${selectedDay}`);
+    
     try {
       const month = parseInt(selectedMonth);
       const day = parseInt(selectedDay);
@@ -79,11 +83,19 @@ export const ZodiacModule: React.FC = () => {
       saveZodiacInfo(info);
       setZodiacInfo(info);
       
+      // Track successful zodiac lookup
+      if (info.sign) {
+        trackEvent('zodiac_found', 'engagement', info.sign);
+      }
+      
       toast({
         title: "Zodiac Updated",
         description: `Your zodiac sign is ${info.sign}`,
       });
     } catch (error) {
+      // Track error
+      trackEvent('zodiac_error', 'error', error instanceof Error ? error.message : 'unknown');
+      
       toast({
         title: "Error",
         description: "Could not fetch zodiac information",

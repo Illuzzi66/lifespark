@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { saveJournalEntry, getJournalEntryForDate } from '@/lib/local-storage';
 import { JournalEntry } from '@/types';
+import { trackEvent } from '@/lib/analytics';
 
 export const JournalModule: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -47,6 +48,9 @@ export const JournalModule: React.FC = () => {
     saveJournalEntry(dateString, content);
     setAutoSaveIndicator('Auto-saved');
     
+    // Track journal entry save
+    trackEvent('save_journal_entry', 'productivity', dateString);
+    
     // Clear the indicator after 3 seconds
     setTimeout(() => {
       setAutoSaveIndicator('');
@@ -74,16 +78,25 @@ export const JournalModule: React.FC = () => {
     const prevDate = new Date(currentDate);
     prevDate.setDate(prevDate.getDate() - 1);
     setCurrentDate(prevDate);
+    
+    // Track navigation to previous day
+    trackEvent('journal_navigate', 'navigation', 'previous_day');
   };
   
   const goToNextDay = () => {
     const nextDate = new Date(currentDate);
     nextDate.setDate(nextDate.getDate() + 1);
     setCurrentDate(nextDate);
+    
+    // Track navigation to next day
+    trackEvent('journal_navigate', 'navigation', 'next_day');
   };
   
   const goToToday = () => {
     setCurrentDate(new Date());
+    
+    // Track navigation to today
+    trackEvent('journal_navigate', 'navigation', 'today');
   };
 
   return (

@@ -24,11 +24,12 @@ export const GamesTab: React.FC = () => {
         <MiniGame />
       </div>
 
-      {/* Side Banner Ad */}
+      {/* Bottom Banner Ad */}
       <div className="mt-6">
         <AdBanner 
-          adSlot="xxx" 
+          adSlot="games_bottom" 
           adFormat="responsive" 
+          adPosition="games_bottom"
           className="w-full h-24 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
         />
       </div>
