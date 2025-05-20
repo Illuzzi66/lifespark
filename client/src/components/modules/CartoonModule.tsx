@@ -37,14 +37,9 @@ export const CartoonModule: React.FC = () => {
       return;
     }
     
-    // Try to get DeepAI API key from environment first
-    let apiKey = process.env.DEEPAI_API_KEY || import.meta.env.DEEPAI_API_KEY;
-    
-    // If not available in environment, fall back to localStorage
-    if (!apiKey) {
-      const keys = getApiKeys();
-      apiKey = keys.deepai;
-    }
+    // Get DeepAI API key from localStorage
+    const keys = getApiKeys();
+    const apiKey = keys.deepai;
     
     if (!apiKey) {
       toast({

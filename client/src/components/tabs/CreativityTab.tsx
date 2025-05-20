@@ -2,6 +2,7 @@ import { ZodiacModule } from '@/components/modules/ZodiacModule';
 import { CartoonModule } from '@/components/modules/CartoonModule';
 import { BioGenerator } from '@/components/modules/BioGenerator';
 import { AngelNumberInterpreter } from '@/components/modules/AngelNumberInterpreter';
+import { IlluAssistant } from '@/components/modules/IlluAssistant';
 import { AdBanner } from '@/components/shared/AdBanner';
 
 export const CreativityTab: React.FC = () => {
@@ -35,6 +36,11 @@ export const CreativityTab: React.FC = () => {
             adPosition="creativity_in_feed"
             className="w-full h-24 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
           />
+        </div>
+        
+        {/* Illu Assistant spans full width */}
+        <div className="col-span-1 md:col-span-2">
+          <IlluAssistant />
         </div>
         
         <CartoonModule />
