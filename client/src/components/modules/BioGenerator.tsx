@@ -27,23 +27,8 @@ export const BioGenerator: React.FC = () => {
       return;
     }
     
-    // First try to use the environment variable for the API key
-    let apiKey = process.env.OPENAI_API_KEY || import.meta.env.OPENAI_API_KEY;
-    
-    // If not available in environment, fall back to localStorage
-    if (!apiKey) {
-      const keys = getApiKeys();
-      apiKey = keys.openai;
-    }
-    
-    if (!apiKey) {
-      toast({
-        title: "Missing API Key",
-        description: "Please set your OpenAI API key in settings",
-        variant: "destructive"
-      });
-      return;
-    }
+    // Using the project's OpenAI API key from environment
+    const apiKey = import.meta.env.OPENAI_API_KEY;
     
     setLoading(true);
     
