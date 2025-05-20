@@ -8,7 +8,7 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 import { ApiKeyModal } from "@/components/modals/ApiKeyModal";
 import { initGA } from "./lib/analytics";
-import { initializeAdSense } from "./lib/adsense-config";
+import { initializeAdSense, enableAutoAds } from "./lib/adsense-script";
 import { useAnalytics } from "./hooks/use-analytics";
 
 // Custom CSS for a more professional look
@@ -51,6 +51,9 @@ function App() {
     
     // Initialize Google AdSense
     initializeAdSense();
+    
+    // Enable auto ads for additional ad placements
+    enableAutoAds();
   }, []);
 
   // Handle OpenAI API key (now using environment variables)

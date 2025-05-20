@@ -23,8 +23,20 @@ export const CreativityTab: React.FC = () => {
         discover your zodiac traits, and create social media bios effortlessly.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <ZodiacModule />
+        <AngelNumberInterpreter />
+        
+        {/* In-feed Advertisement */}
+        <div className="col-span-1 md:col-span-2">
+          <AdBanner 
+            adSlot="in_feed" 
+            adFormat="responsive" 
+            adPosition="creativity_in_feed"
+            className="w-full h-24 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg" 
+          />
+        </div>
+        
         <CartoonModule />
         <BioGenerator />
       </div>

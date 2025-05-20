@@ -11,29 +11,17 @@ import { AdBanner } from '../shared/AdBanner';
 // Angel number database with common interpretations
 const angelNumberMeanings: Record<string, string> = {
   "111": "Angel number 111 represents manifestation, new beginnings, and alignment with your true purpose. This number is a sign that your thoughts are manifesting quickly, so focus on positive thinking.",
-  
   "222": "Angel number 222 symbolizes balance, harmony, and partnership. It suggests that you're on the right path and encourages you to maintain faith and trust in the journey.",
-  
   "333": "Angel number 333 indicates that ascended masters are nearby, offering their support and guidance. This number brings creative energy and encourages self-expression.",
-  
   "444": "Angel number 444 signifies protection and stability. Your angels are surrounding you, offering their guidance and encouragement. This number reminds you that you are never alone.",
-  
   "555": "Angel number 555 represents significant life changes and transformation. While change can be challenging, this number reassures you that these changes are necessary for your growth.",
-  
   "666": "Contrary to popular belief, angel number 666 is not negative. It reminds you to balance your material and spiritual life, suggesting you may be focusing too much on worldly concerns.",
-  
   "777": "Angel number 777 is a highly spiritual number symbolizing divine guidance and spiritual awakening. It indicates you're on the right path in your spiritual journey.",
-  
   "888": "Angel number 888 represents abundance, financial prosperity, and success. It suggests that material rewards for your efforts are coming your way.",
-  
   "999": "Angel number 999 signifies completion and the end of a cycle in your life. It encourages you to let go of what no longer serves you to make room for new beginnings.",
-  
   "1010": "Angel number 1010 encourages you to pay attention to your thoughts and intuition. It suggests that you're aligned with your soul's mission and reminds you of your infinite potential.",
-  
-  "1111": "Angel number 1111 is a powerful manifestation number. It's often considered a wake-up call from the universe, encouraging you to focus on your desires as they're manifesting rapidly.",
-  
+  "1111": "Angel number 1111 is a powerful manifestation number. It signifies a wake-up call from the universe, encouraging you to focus on your desires as they're manifesting rapidly.",
   "1212": "Angel number 1212 symbolizes balance and harmony in your life journey. It encourages you to maintain positive thoughts and stay focused on your personal truths and spiritual growth.",
-  
   "1234": "Angel number 1234 represents progression and forward movement. It suggests that you're on the right path and encourages you to continue moving forward with determination."
 };
 

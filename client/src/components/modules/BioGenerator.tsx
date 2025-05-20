@@ -8,6 +8,7 @@ import { getApiKeys } from '@/lib/local-storage';
 import { BioType } from '@/types';
 import { useToast } from '@/hooks/use-toast';
 import { trackEvent } from '@/lib/analytics';
+import { AdBanner } from '../shared/AdBanner';
 
 export const BioGenerator: React.FC = () => {
   const [name, setName] = useState('');
@@ -27,9 +28,18 @@ export const BioGenerator: React.FC = () => {
       return;
     }
     
-    // Since we need to properly access the OpenAI API key in this environment
+    // Get OpenAI API key
     const keys = getApiKeys();
     const apiKey = keys.openai;
+    
+    if (!apiKey) {
+      toast({
+        title: "Missing API Key",
+        description: "Please set your OpenAI API key in settings",
+        variant: "destructive"
+      });
+      return;
+    }
     
     setLoading(true);
     
@@ -180,18 +190,29 @@ export const BioGenerator: React.FC = () => {
         </Button>
         
         {generatedBio && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-            <p className="text-sm italic">{generatedBio}</p>
-            <div className="mt-2 flex justify-between items-center">
-              <span className="text-xs text-gray-500">Generated using OpenAI</span>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="text-xs text-primary hover:underline"
-                onClick={copyToClipboard}
-              >
-                Copy
-              </Button>
+          <div className="animate-fade-up">
+            {/* Show ad before bio */}
+            <div className="mb-4">
+              <AdBanner 
+                adSlot="bio_generator_ad" 
+                adPosition="pre_bio_display"
+                className="w-full h-20 bg-gray-100 flex items-center justify-center text-gray-400 text-sm border border-gray-200 rounded-lg"
+              />
+            </div>
+            
+            <div className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg shadow-sm">
+              <p className="text-sm italic">{generatedBio}</p>
+              <div className="mt-2 flex justify-between items-center">
+                <span className="text-xs text-gray-500">Generated using OpenAI</span>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-xs text-primary hover:underline"
+                  onClick={copyToClipboard}
+                >
+                  Copy
+                </Button>
+              </div>
             </div>
           </div>
         )}
