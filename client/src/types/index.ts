@@ -42,7 +42,7 @@ export interface ApiKeys {
 }
 
 // Bio Generator Types
-export type BioType = 'instagram' | 'linkedin' | 'twitter';
+export type BioType = 'instagram' | 'linkedin' | 'twitter' | 'facebook' | 'tiktok';
 export interface BioRequest {
   name: string;
   interests: string[];

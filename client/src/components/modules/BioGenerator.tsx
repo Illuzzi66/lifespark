@@ -27,8 +27,9 @@ export const BioGenerator: React.FC = () => {
       return;
     }
     
-    // Using the project's OpenAI API key from environment
-    const apiKey = import.meta.env.OPENAI_API_KEY;
+    // Since we need to properly access the OpenAI API key in this environment
+    const keys = getApiKeys();
+    const apiKey = keys.openai;
     
     setLoading(true);
     
@@ -48,6 +49,12 @@ export const BioGenerator: React.FC = () => {
           break;
         case 'twitter':
           prompt = `Create a witty Twitter bio for ${name} who is into ${interests}. Make it short, punchy, and include relevant hashtags.`;
+          break;
+        case 'facebook':
+          prompt = `Create a friendly and personal Facebook bio for ${name} who loves ${interests}. Make it relatable, warm, and include some personal touches.`;
+          break;
+        case 'tiktok':
+          prompt = `Generate a trendy TikTok bio for ${name} who creates content about ${interests}. Make it ultra-short, catchy, with emojis and trending hashtags.`;
           break;
       }
       
@@ -139,7 +146,7 @@ export const BioGenerator: React.FC = () => {
         <div className="mb-4">
           <span className="block text-sm font-medium mb-1">Generate For</span>
           <RadioGroup value={bioType} onValueChange={(value) => setBioType(value as BioType)}>
-            <div className="flex space-x-4">
+            <div className="grid grid-cols-3 gap-2">
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="instagram" id="instagram" />
                 <Label htmlFor="instagram">Instagram</Label>
@@ -151,6 +158,14 @@ export const BioGenerator: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="twitter" id="twitter" />
                 <Label htmlFor="twitter">Twitter</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="facebook" id="facebook" />
+                <Label htmlFor="facebook">Facebook</Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="tiktok" id="tiktok" />
+                <Label htmlFor="tiktok">TikTok</Label>
               </div>
             </div>
           </RadioGroup>

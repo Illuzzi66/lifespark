@@ -1,6 +1,7 @@
 import { ZodiacModule } from '@/components/modules/ZodiacModule';
 import { CartoonModule } from '@/components/modules/CartoonModule';
 import { BioGenerator } from '@/components/modules/BioGenerator';
+import { AngelNumberInterpreter } from '@/components/modules/AngelNumberInterpreter';
 import { AdBanner } from '@/components/shared/AdBanner';
 
 export const CreativityTab: React.FC = () => {
